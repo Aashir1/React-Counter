@@ -15,15 +15,16 @@ class Counter extends React.Component {
   }
   //function start coundown counter from 30 to 0 during this duration buttons was disabled
   disableCounter = () => {
+    console.log('disable counter involked')
     this.setState({
       flag : true
     });
-    let stopExe = setInterval(() => {
+    this.stopExe = setInterval(() => {
       if (this.state.coundownCounter === 0) {
-        clearInterval(stopExe);
-        this.setState({tempCounter: 0});
-        this.setState({coundownCounter : 30});
+        clearInterval(this.stopExe);
         this.setState({
+          tempCounter: 0, 
+          coundownCounter : 30, 
           flag : false
         });
       }
@@ -43,16 +44,13 @@ class Counter extends React.Component {
     }
     else {
       if (this.state.tempCounter < 3) {
-        alert('You are going down from 0')
+        alert('You are exceeding from 10');
         this.setState({
           tempCounter: this.state.tempCounter + 1
-        })
-        if (this.state.tempCounter === 2) {
-          this.disableCounter();
-          this.setState({
-            tempCounter: this.state.tempCounter + 1
-          })
-        }
+        });
+      }
+      if (this.state.tempCounter === 2) {
+        this.disableCounter();
       }
     }
   }
@@ -61,20 +59,17 @@ class Counter extends React.Component {
     if (this.state.counter > 0) {
       this.setState({
         counter: this.state.counter - 1
-      })
+      });
     }
     else {
       if (this.state.tempCounter < 3) {
-        alert('You are going down from 0')
+        alert('You are going down from 0');
         this.setState({
           tempCounter: this.state.tempCounter + 1
-        })
-        if (this.state.tempCounter === 2) {
-          this.disableCounter();//this function not call
-          this.setState({
-            tempCounter: this.state.tempCounter + 1
-          })
-        }
+        });
+      }
+      if (this.state.tempCounter === 2) {
+        this.disableCounter();
       }
     }
   }
@@ -86,21 +81,16 @@ class Counter extends React.Component {
           <div>
             <h2 className = "cowndown-timer">00:{this.state.coundownCounter>9?this.state.coundownCounter:`0${this.state.coundownCounter}`}</h2>
             <h1>Counter Value: {this.state.counter} (limit of counter from 0 to 10)</h1>
-            <Button clickedFunction = {this.decrement} text = "Decrement" disabled={this.state.tempCounter === 3} />
-            <Button clickedFunction = {this.increment} text = "Increment" disabled={this.state.tempCounter === 3} />
+            <Button clickedFunction = {this.decrement} text = "Decrement" hide={this.state.tempCounter === 3} />
+            <Button clickedFunction = {this.increment} text = "Increment" hide={this.state.tempCounter === 3} />
           </div>
           :
           <div>
             <h1>Counter Value: {this.state.counter} (limit of counter from 0 to 10)</h1>
-            <Button clickedFunction = {this.decrement} text = "Decrement" disabled={this.state.tempCounter === 3} />
-            <Button clickedFunction = {this.increment} text = "Increment" disabled={this.state.tempCounter === 3} />
+            <Button clickedFunction = {this.decrement} text = "Decrement" hide={this.state.tempCounter === 3} />
+            <Button clickedFunction = {this.increment} text = "Increment" hide={this.state.tempCounter === 3} />
           </div>
         }
-        {/* <h2 className = "cowndown-timer">00:{this.state.coundownCounter>9?this.state.coundownCounter:`0${this.state.coundownCounter}`}</h2>
-        <h1>Counter Value: {this.state.counter} (limit of counter from 0 to 10)</h1>
-        <button onClick={this.decrement} disabled={this.state.tempCounter === 3}>Decrement</button>
-        <button onClick={this.increment} disabled={this.state.tempCounter === 3}>Increment</button> */}
-
       </div>
     )
   }

@@ -8,7 +8,7 @@ export class Button extends Component{
     }
     render(){
         return(
-            <button onClick ={this.props.clickedFunction}>{this.props.text}</button>
+            <button onClick ={this.props.clickedFunction} disabled = {this.props.hide}>{this.props.text}</button>
         );
     }
 }
